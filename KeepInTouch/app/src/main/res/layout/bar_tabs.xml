@@ -1,0 +1,40 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#e30054"
+        android:src="@drawable/bar_messages"
+        android:id="@+id/bar_messages"
+        android:clickable="true"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#e30054"
+        android:src="@drawable/bar_address"
+        android:id="@+id/bar_address"
+        android:clickable="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#e30054"
+        android:src="@drawable/bar_notifications"
+        android:id="@+id/bar_notifications"
+        android:clickable="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#e30054"
+        android:src="@drawable/bar_settings"
+        android:id="@+id/bar_settings"
+        android:clickable="true"/>
+
+</LinearLayout>

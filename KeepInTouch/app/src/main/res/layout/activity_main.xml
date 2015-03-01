@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ctw="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:name=".MainActivity"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:background="#7a028b">
+<include layout="@layout/bar_tabs"/>
+    <LinearLayout
+        android:id="@+id/current_fragment"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"/>
+
+    </LinearLayout>
