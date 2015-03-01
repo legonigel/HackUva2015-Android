@@ -73,7 +73,8 @@ public class FriendsAdapter extends BaseAdapter{
             viewHolder=new ViewHolderData();
             viewHolder.user=(TextView)convertView.findViewById(R.id.message_container_user);
             viewHolder.message=(TextView) convertView.findViewById(R.id.message_container_content);
-            viewHolder.image=(ImageView) convertView.findViewById(R.id.message_container_picture);
+            viewHolder.imager=(ImageView) convertView.findViewById(R.id.message_container_picture_right);
+            viewHolder.imagel=(ImageView)convertView.findViewById(R.id.message_container_picture_left);
             viewHolder.date=(TextView) convertView.findViewById(R.id.message_container_date);
             viewHolder.layout_listener=(LinearLayout)convertView.findViewById(R.id.message_container_click);
             convertView.setTag(viewHolder);
@@ -117,8 +118,12 @@ public class FriendsAdapter extends BaseAdapter{
                 viewHolder.message.setGravity(Gravity.RIGHT);
                 viewHolder.user.setGravity(Gravity.RIGHT);
                 viewHolder.user.setText(messages.get(position).getReceiver());
+                viewHolder.imager.setImageResource(R.drawable.yourpicplaceholder);
+                viewHolder.imagel.setImageResource(R.drawable.picalt);
             }else{
                 viewHolder.user.setText(messages.get(position).getSender());
+                viewHolder.imager.setImageResource(R.drawable.picalt);
+                viewHolder.imagel.setImageResource(R.drawable.theirpicplaceholder);
             }
         }
         return convertView;
@@ -129,7 +134,8 @@ public class FriendsAdapter extends BaseAdapter{
         TextView user;
         TextView date;
         TextView message;
-        ImageView image;
+        ImageView imager;
+        ImageView imagel;
         LinearLayout layout_listener;
     }
     public interface FriendAdapterMainInterface{

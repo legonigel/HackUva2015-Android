@@ -3,11 +3,36 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#7a028b">
-    <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
+    <TextView
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:textSize="28sp"
+        android:text="@string/initial_login_text"
+        android:id="@+id/initial_login_text"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+    <EditText android:id="@+id/initial_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:hint="@string/initial_user_prompt"
+        android:padding="10dip"
+        android:layout_gravity="center_vertical" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/initial_user_submit"
+        android:background="#FFFFFF"
+        android:padding="10dip"
+        android:layout_margin="10dip"
+        android:text="@string/initial_button_submit"
         />
+    </LinearLayout>
+
+
 </LinearLayout>

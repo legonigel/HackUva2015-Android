@@ -4,14 +4,15 @@
     android:background="#A22BB3"
     android:clickable="true"
     android:id="@+id/message_container_click"
+    android:paddingBottom="3dp"
     >
     <ImageView
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/picplaceholder"
+        android:src="@drawable/theirpicplaceholder"
         android:gravity="end"
-        android:id="@+id/message_container_picture"
+        android:id="@+id/message_container_picture_left"
         android:layout_weight="0"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -58,5 +59,13 @@
             android:gravity="start"
             android:layout_gravity="left" />
         </LinearLayout>
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/picalt"
+        android:gravity="end"
+        android:id="@+id/message_container_picture_right"
+        android:layout_weight="0"/>
 
 </LinearLayout>

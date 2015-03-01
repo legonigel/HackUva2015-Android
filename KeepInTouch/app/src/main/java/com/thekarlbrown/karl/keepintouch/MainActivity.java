@@ -32,7 +32,7 @@ FragmentManager fm;
     List<Message> message_list=new ArrayList<Message>();;
     List<Message> message_convo=new ArrayList<Message>();;
     List<Message> friends_list=new ArrayList<Message>();;
-   // private LoginFacebook loginFacebook;
+   private LoginFacebook loginFacebook;
     private MessageTab messageTab;
     private FriendsTab friendsTab;
     //private NotificationsTab notificationsTab;
@@ -77,12 +77,12 @@ FragmentManager fm;
     public void onStart()
     {
         super.onStart();
-        messageTab=new MessageTab();
+        loginFacebook=new LoginFacebook();
         getFragmentManager()
                 .beginTransaction()
-                .add(R.id.current_fragment, messageTab, "friendsTab")
+                .replace(R.id.current_fragment, loginFacebook, "loginFacebook")
                 .commit();
-        createBarClick();
+
     }
     public void createBarClick()
     {
@@ -161,6 +161,19 @@ FragmentManager fm;
 
 
 
+    }
+    public void addTabs(String user)
+    {
+        username_account=user;
+        messageTab=new MessageTab();
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.current_fragment, messageTab, "messageTab")
+                .commit();
+        selected=1;
+        imageView=(ImageView)findViewById(R.id.bar_messages);
+        imageView.setBackgroundColor(Color.parseColor("#e23374"));
+        createBarClick();
     }
 
 @Override
