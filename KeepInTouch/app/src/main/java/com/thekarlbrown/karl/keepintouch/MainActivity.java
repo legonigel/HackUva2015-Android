@@ -5,22 +5,18 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
-import android.media.Image;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.ImageView;
+import org.json.JSONArray;
+
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 //import com.facebook.Session;
 
@@ -35,32 +31,20 @@ FragmentManager fm;
    private LoginFacebook loginFacebook;
     private MessageTab messageTab;
     private FriendsTab friendsTab;
-    //private NotificationsTab notificationsTab;
     String username_account;
-
    String currrent_friend;
+    int user_id;
+    //httprequest shizzz
+    JSONParser jsonParser;
+    JSONArray jsonArray;
+    String http_request;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*if (savedInstanceState == null) {
-            // Add the fragment on initial activity setup
-            loginFacebook = new LoginFacebook();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.current_fragment, loginFacebook, "loginFacebook")
-                    .commit();
-        } else {
-            // Or set the fragment from restored state info
-            loginFacebook = (LoginFacebook) getSupportFragmentManager()
-                    .findFragmentById(android.R.id.content);
-        }
-        */
-        ////test cases
-        username_account="karl";
-        for(int x =0;x<15;x++) {
-            message_list.add(new Message.Builder().date().message("Here is a test message list").read(false).receiver("karl").sender("nigel").build());
-        }
+
+        message_list.add(new Message.Builder().date().message("Here is a test message").read(false).receiver("karl").sender("nigel").build());
+
         for(int x =0;x<7;x++) {
             message_convo.add(new Message.Builder().date().message("Here is a test convo").read(false).receiver("karl").sender("nigel").build());
         }
@@ -75,6 +59,11 @@ FragmentManager fm;
         }
 
     }
+    public void onConversationFetch(String json) {
+        String temp=json;
+        for (int x = 0; x < 15; x++) {
+        }
+    }
     @Override
     public void onStart()
     {
@@ -84,7 +73,6 @@ FragmentManager fm;
                 .beginTransaction()
                 .replace(R.id.current_fragment, loginFacebook, "loginFacebook")
                 .commit();
-
     }
     public void createBarClick()
     {
@@ -135,14 +123,7 @@ FragmentManager fm;
                     selected=3;
                     imageView=(ImageView)findViewById(R.id.bar_notifications);
                     imageView.setBackgroundColor(Color.parseColor("#e23374"));
-                    //update for notificationsdata data
-                    /*
-                    notificationsTab=new NotificationsTab();
-                    getFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.current_fragment, notificationsTab, "notificationsTab")
-                            .commit();
-                            */
+
                 }
             }
         });
@@ -160,13 +141,12 @@ FragmentManager fm;
                 }
             }
         });
-
-
-
     }
     public void addTabs(String user)
     {
         username_account=user;
+        user_id=4; //function
+        http_request="https://nodejs-cnuhacks.rhcloud.com/api/conversations/user/" + user_id;
         messageTab=new MessageTab();
         getFragmentManager()
                 .beginTransaction()
@@ -175,7 +155,18 @@ FragmentManager fm;
         selected=1;
         imageView=(ImageView)findViewById(R.id.bar_messages);
         imageView.setBackgroundColor(Color.parseColor("#e23374"));
+
         createBarClick();
+
+        AsyncParser asyncParser=new AsyncParser();
+        try{
+            asyncParser.execute();
+            jsonArray=asyncParser.get();
+        }catch(Exception e)
+        {
+            Log.println(0, "Error", e.getMessage());
+        }
+        Log.println(0,"","Take a break");
     }
 
 @Override
@@ -194,17 +185,7 @@ FragmentManager fm;
         selected=-2;
     }
 
-    /**
-     * dont forget me senpai
-     * @param sender
 
-    @Override
-    public void notificationsListToConversation(String sender)
-    {
-        //update my message array here
-        notificationsTab.updateMessagesConvo();
-    }
-     */
     public void sendTextMessages(String message)
     {
         //send text
@@ -219,26 +200,35 @@ FragmentManager fm;
         message_convo.add(0,new Message.Builder().date().receiver(currrent_friend).sender(username_account).read(false).message(message).build());
         friendsTab.updateMessagesConvo();
     }
-    public void deselectedTab(int x)
-    {
-        if(x==1||x==-1)
-        {
-            imageView=(ImageView)findViewById(R.id.bar_messages);
-        }else if(x==2||x==-2)
-        {
-            imageView=(ImageView)findViewById(R.id.bar_address);
+    public void deselectedTab(int x) {
+        if (x == 1 || x == -1) {
+            imageView = (ImageView) findViewById(R.id.bar_messages);
+        } else if (x == 2 || x == -2) {
+            imageView = (ImageView) findViewById(R.id.bar_address);
+        } else if (x == 3 || x == -3) {
+            imageView = (ImageView) findViewById(R.id.bar_notifications);
+        } else if (x == 4 || x == -4) {
+            imageView = (ImageView) findViewById(R.id.bar_settings);
         }
-        else if(x==3||x==-3)
-        {
-            imageView=(ImageView)findViewById(R.id.bar_notifications);
-        }
-        else if(x==4||x==-4)
-        {
-            imageView=(ImageView)findViewById(R.id.bar_settings);
-
-        }
-        if(x!=0) {
+        if (x != 0) {
             imageView.setBackgroundColor(Color.parseColor("#e30054"));
         }
     }
+    private class AsyncParser extends AsyncTask<String, String, JSONArray>
+    {
+        JSONParser jsonParser=new JSONParser();
+        JSONArray jsonArray;
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            Log.println(0, "", "Starting JSON parse...");
+            try {
+                jsonArray=jsonParser.makeHttpRequest(http_request, "GET");
+            }catch(IOException e){
+                Log.println(0, "Error", e.getMessage());
+            }
+            Log.println(0, "", "Done with JSON parse...");
+            return jsonArray;
+        }
+    }
 }
+
