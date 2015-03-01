@@ -45,7 +45,7 @@ Button button;
             public void onClick(View v) {
                 hideSoftKeyboard();
                 String temp=((EditText) view.findViewById(R.id.initial_username)).getText().toString();
-                if(Pattern.matches("^[A-Za-z0-9]+", temp)&&(temp.length()<26))
+                if(Pattern.matches("^[0-9]+", temp)&&(temp.length()<26))
                 {
                     hideSoftKeyboard();
                     sendUsername(temp);

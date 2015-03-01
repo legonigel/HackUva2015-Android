@@ -7,7 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="initial_user_prompt">Enter your username</string>
     <string name="initial_button_submit">Submit</string>
-    <string name="initial_login_text">Welcome to KeepInTouch! Please login below</string>
+    <string name="initial_login_text">Welcome to KeepInTouch! Please enter your Facebook ID #</string>
     <string name="initial_login_error_internet">You have no internet connection</string>
-    <string name="initial_login_error_entry">XX characters or less, letters and numbers</string>
+    <string name="initial_login_error_entry">Numbers only, Facebook ID # only</string>
 </resources>

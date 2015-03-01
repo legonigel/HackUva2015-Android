@@ -8,6 +8,7 @@ public class Message {
     private String mMessage;
     private String mSender;
     private String mReceiver;
+    private int mId;
     private Message() {}
 
     public String getMessage() {
@@ -21,6 +22,7 @@ public class Message {
         return mSender;
     };
     public boolean getRead(){return mRead;};
+    public int getId(){return mId;};
 
     public static class Builder {
         private String mDate;
@@ -28,6 +30,7 @@ public class Message {
         private String mMessage;
         private String mSender;
         private String mReceiver;
+        private int mId;
 
         public Builder sender(String sender) {
             mSender=sender;
@@ -49,6 +52,16 @@ public class Message {
             mDate=(new Date()).toString();
             return this;
         }
+        public Builder date(String date)
+        {
+            mDate=date;
+            return this;
+        }
+        public Builder id(int id)
+        {
+            mId=id;
+            return this;
+        }
         public Message build() {
             Message message = new Message();
             message.mSender = mSender;
@@ -56,6 +69,7 @@ public class Message {
             message.mRead=mRead;
             message.mDate=mDate;
             message.mMessage=mMessage;
+            message.mId=mId;
             return message;
         }
     }

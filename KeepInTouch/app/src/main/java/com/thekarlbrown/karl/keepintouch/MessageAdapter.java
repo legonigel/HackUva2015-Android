@@ -26,22 +26,26 @@ public class MessageAdapter extends BaseAdapter{
     int curposition;
     boolean individual;
     String local_user;
+    String sender_user;
     boolean notalternative=true;
     //for later when I am doing screen scaling
     int adjustable = 115;
+    int original_id;
     MessageAdapterMainInterface mListener;
 
 
-    public MessageAdapter(List<Message> message , Context con, boolean indiv,String user) {
+    public MessageAdapter(List<Message> message , Context con, boolean indiv,String local,String sender, int original_message_id) {
         messages=message;
         context=con;
         individual=indiv;
-        if(user.equals("   "))
+        if(local.equals("   "))
         {
             notalternative=false;
         }else {
-            local_user = user;
+            local_user = local;
         }
+        sender_user=sender;
+        original_id=original_message_id;
         try{
             mListener=(MessageAdapterMainInterface)con;
         }catch(ClassCastException e){
@@ -98,19 +102,19 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.layout_listener.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.messageListToConversation(messages.get(positiontemp).getSender());
+                    mListener.messageListToConversation(messages.get(positiontemp).getSender(),messages.get(positiontemp).getId());
                 }
             });
         }else{
-            if(local_user.equals(messages.get(position).getReceiver()))
+            if((original_id!=Integer.parseInt(messages.get(position).getReceiver())))
             {
                 viewHolder.imager.setImageResource(R.drawable.yourpicplaceholder);
                 viewHolder.imagel.setImageResource(R.drawable.picalt);
                 viewHolder.message.setGravity(Gravity.RIGHT);
                 viewHolder.user.setGravity(Gravity.RIGHT);
-                viewHolder.user.setText(messages.get(position).getReceiver());
+                viewHolder.user.setText(local_user);
             }else{
-                viewHolder.user.setText(messages.get(position).getSender());
+                viewHolder.user.setText(sender_user);
                 viewHolder.imagel.setImageResource(R.drawable.theirpicplaceholder);
                 viewHolder.imager.setImageResource(R.drawable.picalt);
             }
@@ -128,6 +132,6 @@ public class MessageAdapter extends BaseAdapter{
         LinearLayout layout_listener;
     }
 public interface MessageAdapterMainInterface{
-    public void messageListToConversation(String sender);
+    public void messageListToConversation(String sender, int convoid);
     }
 }

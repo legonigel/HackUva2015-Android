@@ -53,7 +53,7 @@ View view;
         view=inflater.inflate(R.layout.fragment_message_tab, container, false);
         mainActivity=(MainActivity)getActivity();
         //adapt it once I know the parameters
-        messageAdapter = new MessageAdapter(mainActivity.message_list,mainActivity,false,mainActivity.username_account);
+        messageAdapter = new MessageAdapter(mainActivity.message_list,mainActivity,false,mainActivity.username_account,mainActivity.current_friend_username,mainActivity.user_id);
         listView = (ListView) view.findViewById(R.id.message_list_every);
         listView.setAdapter(messageAdapter);
         button=(Button)view.findViewById(R.id.message_send_button);
@@ -89,7 +89,7 @@ View view;
     {
         linearLayout=(LinearLayout)view.findViewById(R.id.message_textbar);
         linearLayout.setVisibility(View.VISIBLE);
-        messageAdapter=new MessageAdapter(mainActivity.message_convo,mainActivity,true,mainActivity.username_account);
+        messageAdapter=new MessageAdapter(mainActivity.message_convo,mainActivity,true,mainActivity.username_account,mainActivity.current_friend_username,mainActivity.user_id);
         listView=(ListView)view.findViewById(R.id.message_list_every);
         listView.setAdapter(messageAdapter);
         //do I need this
