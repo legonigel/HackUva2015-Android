@@ -98,7 +98,7 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.layout_listener.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.messageListToConversation(messages.get(positiontemp).getSender(),messages.get(positiontemp).getReceiver());
+                    mListener.messageListToConversation(messages.get(positiontemp).getSender());
                 }
             });
         }else{
@@ -128,6 +128,6 @@ public class MessageAdapter extends BaseAdapter{
         LinearLayout layout_listener;
     }
 public interface MessageAdapterMainInterface{
-    public void messageListToConversation(String sender, String receiver);
+    public void messageListToConversation(String sender);
     }
 }

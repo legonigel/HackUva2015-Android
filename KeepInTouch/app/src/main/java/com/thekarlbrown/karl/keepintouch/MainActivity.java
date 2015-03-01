@@ -37,6 +37,8 @@ FragmentManager fm;
     private FriendsTab friendsTab;
     //private NotificationsTab notificationsTab;
     String username_account;
+
+   String currrent_friend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,8 +179,9 @@ FragmentManager fm;
     }
 
 @Override
-    public void messageListToConversation(String sender, String receiver) {
+    public void messageListToConversation(String sender) {
         //update my message array here
+        currrent_friend=sender;
         messageTab.updateMessagesConvo();
         selected=-1;
     }
@@ -186,6 +189,7 @@ FragmentManager fm;
     public void friendsListToConversation(String sender)
     {
         //update my message array here
+        currrent_friend=sender;
         friendsTab.updateMessagesConvo();
         selected=-2;
     }
@@ -201,6 +205,20 @@ FragmentManager fm;
         notificationsTab.updateMessagesConvo();
     }
      */
+    public void sendTextMessages(String message)
+    {
+        //send text
+        //update messages array
+        message_convo.add(0,new Message.Builder().date().receiver(currrent_friend).sender(username_account).read(false).message(message).build());
+        messageTab.updateMessagesConvo();
+    }
+    public void sendTextFriends(String message)
+    {
+        //send text
+        //update messages array
+        message_convo.add(0,new Message.Builder().date().receiver(currrent_friend).sender(username_account).read(false).message(message).build());
+        friendsTab.updateMessagesConvo();
+    }
     public void deselectedTab(int x)
     {
         if(x==1||x==-1)
